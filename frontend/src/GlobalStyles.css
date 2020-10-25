@@ -1,0 +1,16 @@
+* {
+  font-family: Tahoma, Verdana, Arial;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --color-primary: #00796a;
+  --color-white: #ffffff;
+  --color-login: rgba(255, 255, 255, 0.3);
+  --color-text: #666666;
+  --color-text-input: #a0a0a0;
+  --color-error: #d00d10;
+  --color-login-box: rgba(255, 255, 255, 0.7);
+}

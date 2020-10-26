@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import Logo from '../../assets/logo.webp';
 import {
@@ -39,7 +40,9 @@ const Home = () => {
               <input type="text" placeholder="Usuário" />
               <div>
                 <input type="password" placeholder="Senha" />
-                <Button><a href="#" alt="Logar">ACESSAR</a></Button>
+                <Button>
+                  <Link to="/" alt="Logar">ACESSAR</Link>
+                </Button>
               </div>
             </LoginInfo>
 

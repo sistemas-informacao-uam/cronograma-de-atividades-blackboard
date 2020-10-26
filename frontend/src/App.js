@@ -1,13 +1,12 @@
 import React from 'react';
 
-import Calendar from './components/Calendar';
-import Home from './pages/Home';
+import Routes from './routes';
 
 import './GlobalStyles.css';
 
 function App() {
   return (
-    <Home />
+    <Routes />
   );
 }
 

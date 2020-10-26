@@ -41,7 +41,7 @@ const Home = () => {
               <div>
                 <input type="password" placeholder="Senha" />
                 <Button>
-                  <Link to="/" alt="Logar">ACESSAR</Link>
+                  <Link to="/subjects" alt="Logar">ACESSAR</Link>
                 </Button>
               </div>
             </LoginInfo>

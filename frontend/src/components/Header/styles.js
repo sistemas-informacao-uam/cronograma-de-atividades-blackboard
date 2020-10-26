@@ -57,6 +57,7 @@ export const LogoutIcon = styled(FiPower)`
 
     &&:hover {
         cursor: pointer;
+        color: #FFFFFF;
     }
 `;
 

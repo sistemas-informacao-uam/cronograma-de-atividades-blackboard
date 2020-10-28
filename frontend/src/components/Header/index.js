@@ -12,6 +12,8 @@ import LogoHearder from '../../assets/subjects-logo.png';
 import { useHistory } from 'react-router-dom';
 import { useUser } from '../../context/User';
 
+import { Link } from 'react-router-dom';
+
 const Header = () => {
     const { user } = useUser();
     
@@ -23,7 +25,9 @@ const Header = () => {
 
     return (
         <Container>
-            <img src={LogoHearder} alt="Anhembi Morumbi" />
+            <Link to="/">
+                <img src={LogoHearder} alt="Anhembi Morumbi" />
+            </Link>
 
             <UserMenu>
                 <UserIcon />

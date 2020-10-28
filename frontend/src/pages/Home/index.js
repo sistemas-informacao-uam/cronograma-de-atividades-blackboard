@@ -17,7 +17,7 @@ const Home = () => {
     <>
       <Header />
       <Container>
-        <h1>Minhas Disciplinas</h1>
+        <h1>{user.type === 'student' ? 'Minhas Disciplinas' : 'Disciplinas que dou Aula'}</h1>
         <SubjectsList>
           {user.subjects.map(subject => <Subject key={subject} title={subject} />)}
         </SubjectsList>

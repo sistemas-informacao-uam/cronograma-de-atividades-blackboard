@@ -1,4 +1,6 @@
 import React from 'react';
+import { useUser } from '../../context/User';
+
 
 import {
     Container,
@@ -7,11 +9,14 @@ import {
 } from './styles';
 
 const Subject = (props) => {
+    const {user} = useUser();
+
   return (
       <Container>
           <ImageSubject />
           <p>{props.title}</p>
-          <ButtonSubject>Acessar disciplina</ButtonSubject>
+
+          <ButtonSubject as={user.type === 'student' && 'button'} to="/disciplina">Acessar disciplina</ButtonSubject>
       </Container>
   );
 }

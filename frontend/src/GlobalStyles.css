@@ -14,3 +14,9 @@
   --color-error: #d00d10;
   --color-login-box: rgba(255, 255, 255, 0.7);
 }
+
+#root,
+html,
+body {
+  height: 100%;
+}

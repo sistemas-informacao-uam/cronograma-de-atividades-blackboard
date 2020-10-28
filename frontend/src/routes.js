@@ -4,7 +4,7 @@ import { useUser } from './context/User';
 
 import Home from './pages/Home';
 import Login from './pages/Login';
-
+import Subject from './pages/Subject';
 
 const Routes = () => {
     const { user } = useUser();
@@ -14,7 +14,8 @@ const Routes = () => {
                 {user.name !== '' ? (    
                     <Switch>
                         <Route path="/" exact component={Home} />
-                        <Route path="/login" component={Login} />
+                    <Route path="/login" component={Login} />
+                    <Route path="/disciplina" component={Subject} />
                     </Switch>
                 ) : (
                     <Switch>

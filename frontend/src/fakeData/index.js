@@ -1,4 +1,4 @@
-const professorRegisteredActivitiesFakeDate = [
+export const professorRegisteredActivitiesFakeDate = [
   {
     date: '28 de Outubro',
     activities: [

@@ -2,6 +2,8 @@ import styled from 'styled-components';
 
 import ImageSelected from '../../assets/subject-image.jpg';
 
+import { Link } from 'react-router-dom';
+
 export const Container = styled.div`
     display: flex;
     flex-direction: column;
@@ -36,13 +38,18 @@ export const ImageSubject = styled.div`
     }
 `;
 
-export const ButtonSubject = styled.button`
+export const ButtonSubject = styled(Link)`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
     width: 132px;
     height: 33px;
     color: #FFF;
     border: none;
     margin-left: 230px;
     margin-top: 10px;
+    text-decoration: none;
 
     background: #00AD8E;
 

@@ -153,13 +153,15 @@ export const LoginInfo = styled.form`
 
 `;
 
-export const Button = styled.div`
+export const Button = styled.button`
   display: flex;
   justify-content: center;
   margin: auto;
   margin-right: 60px;
+  outline: none;
+  border: none;
 
-  a {
+  p {
     color: var(--color-white);
     text-decoration: none;
     padding: 10px;
@@ -168,5 +170,6 @@ export const Button = styled.div`
     border: none;
     border-radius: 5px;
     box-shadow: 1px 1px 10px 0 rgba(0, 0, 0, 0.6);
+    cursor: pointer;
   }
 `;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 import Logo from '../../assets/logo.webp';
 import {
@@ -14,7 +14,29 @@ import {
   Button
 } from './styles';
 
+import { useUser } from '../../context/User';
+import { useCallback } from 'react';
+import { useState } from 'react';
+
+import { studentFakeData, professorFakeData } from '../../fakeData';
+
 const Login = () => {
+  const history = useHistory();
+
+  const { setUser } = useUser();
+
+  const [userInputValue, setUserInputValue] = useState('');
+
+  const handleLogin = useCallback(() => {
+    if (userInputValue === 'aluno') {
+      setUser(studentFakeData);
+    } else if (userInputValue === 'professor') {
+      setUser(professorFakeData);
+    } else {
+      setUser({name: '', subjects: []});
+    }
+    history.push('/');
+  }, [setUser, userInputValue, history]);
 
   return (
     <Container>
@@ -37,11 +59,11 @@ const Login = () => {
             </Error>
 
             <LoginInfo>
-              <input type="text" placeholder="Usuário" />
+              <input type="text" onChange={(e) => setUserInputValue(e.target.value)} value={userInputValue} placeholder="Usuário" />
               <div>
                 <input type="password" placeholder="Senha" />
-                <Button>
-                  <Link to="/" alt="Logar">ACESSAR</Link>
+                <Button type="button" onClick={handleLogin}>
+                  <p>ACESSAR</p>
                 </Button>
               </div>
             </LoginInfo>

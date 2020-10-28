@@ -4,9 +4,13 @@ import Routes from './routes';
 
 import './GlobalStyles.css';
 
+import UserProvider from './context/User';
+
 function App() {
   return (
-    <Routes />
+    <UserProvider>
+      <Routes />
+    </UserProvider>
   );
 }
 

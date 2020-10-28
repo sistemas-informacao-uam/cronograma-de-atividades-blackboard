@@ -10,8 +10,11 @@ import {
 
 import LogoHearder from '../../assets/subjects-logo.png';
 import { useHistory } from 'react-router-dom';
+import { useUser } from '../../context/User';
 
 const Header = () => {
+    const { user } = useUser();
+    
     const navigate = useHistory();
 
     function handleLogout() {
@@ -24,7 +27,7 @@ const Header = () => {
 
             <UserMenu>
                 <UserIcon />
-                <h1>Olá, NOME USUÁRIO</h1>
+                <h1>Olá, {user.name}</h1>
                 <ArrowIconDown />
                 <LogoutIcon onClick={handleLogout} />
             </UserMenu>

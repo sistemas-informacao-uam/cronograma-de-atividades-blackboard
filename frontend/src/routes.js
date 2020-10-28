@@ -1,17 +1,27 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route} from 'react-router-dom';
+import { useUser } from './context/User';
 
-import HomeAluno from './pages/HomeAluno';
+import Home from './pages/Home';
 import Login from './pages/Login';
 
+
 const Routes = () => {
+    const { user } = useUser();
+
     return (
-        <BrowserRouter>
-            <Switch>
-                <Route path="/" exact component={HomeAluno} />
-                <Route path="/login" component={Login} />
-            </Switch>
-        </BrowserRouter>
+            <BrowserRouter>
+                {user.name !== '' ? (    
+                    <Switch>
+                        <Route path="/" exact component={Home} />
+                        <Route path="/login" component={Login} />
+                    </Switch>
+                ) : (
+                    <Switch>
+                        <Route path="/" component={Login} />
+                    </Switch>
+                )}
+            </BrowserRouter>
     );
 }
 

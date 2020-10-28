@@ -25,9 +25,7 @@ const Header = () => {
 
     return (
         <Container>
-            <Link to="/">
-                <img src={LogoHearder} alt="Anhembi Morumbi" />
-            </Link>
+                <img as={Link} to="/" src={LogoHearder} alt="Anhembi Morumbi" />
 
             <UserMenu>
                 <UserIcon />

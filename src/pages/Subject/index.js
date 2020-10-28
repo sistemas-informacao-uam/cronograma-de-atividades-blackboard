@@ -14,11 +14,6 @@ import ActivityRegistered from '../../components/ActivityRegistered'
 import { professorRegisteredActivitiesFakeDate } from '../../fakeData';
 
 const Subject = () => {
-
-  const [titleInput, setTitleInput] = useState('');
-  const [typeInput, setTypeInput] = useState('');
-  const [dateInput, setDateInput] = useState('');
-
   return (
     <>
       <Header />
@@ -63,7 +58,7 @@ const Subject = () => {
           <hr/>
 
           <section className="registered-activities">
-            <h2>Ativades Cadastradas</h2>
+            <h2>Atividades Cadastradas</h2>
 
             {professorRegisteredActivitiesFakeDate.map((list) => {
               return list.activities.map(activity => {

@@ -17,7 +17,7 @@ export const Header = styled.div`
 `;
 
 export const Content = styled.div`
-    width: 95%;
+    width: 100%;
     background-image: url(${banner2});
     background-size: cover;
     height: calc(100vh - 30px);

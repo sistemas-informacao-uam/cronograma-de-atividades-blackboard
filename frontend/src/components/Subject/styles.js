@@ -31,7 +31,7 @@ export const ImageSubject = styled.div`
 
     transition: transform .5s;
     
-    &&:hover {
+    &:hover {
         transform: scale(1.05);
     }
 `;
@@ -46,7 +46,7 @@ export const ButtonSubject = styled.button`
 
     background: #00AD8E;
 
-    &&:hover {
+    &:hover {
         cursor: pointer;
     }
 `;

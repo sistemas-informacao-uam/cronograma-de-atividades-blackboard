@@ -14,7 +14,7 @@ import {
   Button
 } from './styles';
 
-const Home = () => {
+const Login = () => {
 
   return (
     <Container>
@@ -41,7 +41,7 @@ const Home = () => {
               <div>
                 <input type="password" placeholder="Senha" />
                 <Button>
-                  <Link to="/subjects" alt="Logar">ACESSAR</Link>
+                  <Link to="/" alt="Logar">ACESSAR</Link>
                 </Button>
               </div>
             </LoginInfo>
@@ -54,4 +54,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Login;

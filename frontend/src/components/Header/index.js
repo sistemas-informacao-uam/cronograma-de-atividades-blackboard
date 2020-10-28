@@ -15,7 +15,7 @@ const Header = () => {
     const navigate = useHistory();
 
     function handleLogout() {
-        navigate.push('/');
+        navigate.push('/login');
     }
 
     return (

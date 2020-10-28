@@ -6,6 +6,8 @@ export const Container = styled.div`
     align-items: center;
     padding: 10px;
 
+    margin: 0 auto;
+
     > h1 {
         text-align: center;
         font-family: Lato, sans-serif;
@@ -22,6 +24,7 @@ export const SubjectsList = styled.div`
     align-items: center;
 
     width: 90%;
+    max-width: 1200px;
     margin-top: 10px;
     padding: 10px;
 `;

@@ -1,5 +1,6 @@
 import React from 'react';
 import Header from '../../components/Header';
+import Schedule from '../../components/Schedule';
 import Subject from '../../components/Subject';
 
 import {
@@ -7,10 +8,10 @@ import {
   SubjectsList,
 } from './styles';
 
-const Subjects = () => {
+const HomeAluno = () => {
   return (
     <>
-    <Header />
+      <Header />
       <Container>
         <h1>Minhas Disciplinas</h1>
         <SubjectsList>
@@ -33,9 +34,12 @@ const Subjects = () => {
             title="segurança da informação"
           />
         </SubjectsList>
+
+        <h1>Cronograma de Atividades</h1>
+        <Schedule />
       </Container>
     </>
   );
 };
 
-export default Subjects;
+export default HomeAluno;

@@ -7,15 +7,15 @@ import Login from './pages/Login';
 import Subject from './pages/Subject';
 
 const Routes = () => {
-    const { user } = useUser();
+    const { user, setUser } = useUser();
 
     return (
             <BrowserRouter>
                 {user.name !== '' ? (    
                     <Switch>
                         <Route path="/" exact component={Home} />
-                    <Route path="/login" component={Login} />
-                    <Route path="/disciplina" component={Subject} />
+                        <Route path="/login" component={Login} />
+                        <Route path="/disciplina" component={Subject} />
                     </Switch>
                 ) : (
                     <Switch>

@@ -12,6 +12,12 @@ export const FilterWrapper = styled.div`
 
   margin: 16px 0;
   justify-content: space-around;
+  
+  @media(max-width: 1020px) {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
 `;
 
 export const FilterButton = styled.button`
@@ -23,6 +29,10 @@ export const FilterButton = styled.button`
 
   margin: 0 8px;
   border: none;
+
+  @media(max-width: 1020px) {
+    margin-bottom: 15px;
+  }
     
   ${props => css`
         border: 2px solid ${props.color};    
@@ -34,6 +44,23 @@ export const FilterButton = styled.button`
   }
 `;
 
-export const ActivitiesFilter = styled.div``;
+export const ActivitiesFilter = styled.div`
+  @media (max-width: 425px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+`;
 
-export const SubjectFilter = styled.select``;
+export const SubjectFilter = styled.select`
+  padding: 10px 16.6667px;
+  border: 1px soliv #999999;
+  border-radius: 10px;
+  color: #999999;
+  font-family: Lato, sans-serif;
+
+  @media(max-width: 1020px) {
+    margin-bottom: 15px;
+  }
+`;

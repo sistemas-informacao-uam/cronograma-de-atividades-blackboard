@@ -14,6 +14,7 @@ export const Activity = styled.div`
 `;
 
 export const ActivityTypeIndicator = styled.span`
+  flex-shrink: 0;
   margin: 0 8px 0 16px;
   width: 10px;
   height: 10px;
@@ -22,6 +23,7 @@ export const ActivityTypeIndicator = styled.span`
 `;
 
 export const Separator = styled.div`
+  flex-shrink: 0;
   width: 8px;
   height: 3px;
   margin: 0 8px;

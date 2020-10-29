@@ -56,4 +56,8 @@ export const ButtonSubject = styled(Link)`
     &:hover {
         cursor: pointer;
     }
+
+    @media (max-width: 465px) {
+        margin: auto;
+    }
 `;

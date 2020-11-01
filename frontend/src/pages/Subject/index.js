@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 // import { useUser } from '../../context/User';
 
 import Header from '../../components/Header';
@@ -7,8 +7,11 @@ import {
   Container,
   Sidebar,
   ActivitiesArea,
+  HomeIcon,
+  ArrowIconDown,
 } from './styles';
 import { Button } from '../Login/styles';
+import NavBar from '../../components/NavBar';
 import ActivityRegistered from '../../components/ActivityRegistered'
 
 import { professorRegisteredActivitiesFakeDate } from '../../fakeData';
@@ -17,11 +20,11 @@ const Subject = () => {
   return (
     <>
       <Header />
+      <NavBar />
       <Container>
         <Sidebar>
           <div><div></div></div>
-          <h3>Desenvolvimento Web</h3>
-
+          <h3><ArrowIconDown /> DESENVOLVIMENTO WEB <HomeIcon /></h3>
           <span>Avisos</span>
           <span>Sala Remota</span>
           <span className="active">Atividades</span>

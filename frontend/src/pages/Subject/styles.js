@@ -1,5 +1,8 @@
 import styled from 'styled-components';
 
+import { FaHome } from 'react-icons/fa';
+import { FiChevronDown } from 'react-icons/fi';
+
 export const Container = styled.div`
     display: flex;
     height: calc(100% - 90px);
@@ -9,15 +12,43 @@ export const Container = styled.div`
     }
 `;
 
+export const ArrowIconDown = styled(FiChevronDown)`
+    font-size: 12.8;
+    color: #555;
+    margin-right: 5px;
+
+    &&:hover {
+        cursor: pointer;
+    }
+`;
+
+export const HomeIcon = styled(FaHome)`
+  width: 15.5px;
+  height: 18px;
+  color: #555;
+
+  &&:hover {
+    cursor: pointer;
+  }
+`;
+
+
 export const Sidebar = styled.aside`
     position: sticky;
     top: 0;
-    width: 200px;
-    background: var(--color-primary);
+    width: 240px;
+    font-size: 12.8px;
+    background: var(--color-secondary);
     display: flex;
     flex-direction: column;
     align-items: center;
     color: white;
+
+    .divTitleSub {
+        display: flex;
+        flex-direction: column;
+        background-color: var(--color-secondary);
+    }
 
     div {
         width: 100%;
@@ -39,14 +70,15 @@ export const Sidebar = styled.aside`
     }
 
     span {
-        font-size: 14px;
+        font-size: 12.8px;
+        margin-left: 25px;
         padding: 8px;
         align-self: flex-start;
         transition: 200ms;
         cursor: pointer;
 
         &.active, &:hover {
-            font-size: 15px;
+            font-size: 13px;
             font-weight: bold;
         }
     }

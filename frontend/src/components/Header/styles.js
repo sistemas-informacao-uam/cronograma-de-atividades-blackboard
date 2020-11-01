@@ -37,7 +37,6 @@ export const UserMenu = styled.div`
 
     > h1 {
         color: #EEEEEE;
-        font-family: Lato, sans-serif;
         font-size: 14.08px;
         text-shadow: 1px 1px 10px #000;
     }

@@ -10,7 +10,6 @@ export const Container = styled.div`
 
     > h1 {
         text-align: center;
-        font-family: Lato, sans-serif;
         font-size: 25.6px;
         margin-top: 10px;
         color: #333333;

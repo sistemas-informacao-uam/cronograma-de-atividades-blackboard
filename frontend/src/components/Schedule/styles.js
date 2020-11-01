@@ -2,8 +2,11 @@ import styled, { css } from 'styled-components';
 
 export const Container = styled.div`
   background-color: white;
+  margin-top: 25px;
   width: 100%;
+  padding: 15px;
   max-width: 900px;
+  border-radius: 15px;
 `;
 
 export const FilterWrapper = styled.div`

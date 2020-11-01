@@ -1,5 +1,5 @@
 * {
-  font-family: Tahoma, Verdana, Arial;
+  font-family: Lato, sans-serif;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -7,6 +7,7 @@
 
 :root {
   --color-primary: #00796a;
+  --color-secondary: #00ad8e;
   --color-white: #ffffff;
   --color-login: rgba(255, 255, 255, 0.3);
   --color-text: #666666;
@@ -19,4 +20,5 @@
 html,
 body {
   height: 100%;
+  background-color: rgb(243, 243, 243);
 }

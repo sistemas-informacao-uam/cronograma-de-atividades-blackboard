@@ -5,10 +5,10 @@ import ActivitiesList from '../ActivitiesList';
 
 import { Container, FilterWrapper, ActivitiesFilter, SubjectFilter, FilterButton } from './styles';
 
+import { professorFakeData } from '../../fakeData';
 import { useUser } from '../../context/User';
 
 const Schedule = () => {
-  const { user } = useUser();
 
   const [isProvaSelected, setIsProvaSelected] = useState(false);
   const [isTrabalhoSelected, setIsTrabalhoSelected] = useState(false);
@@ -29,7 +29,7 @@ const Schedule = () => {
       compareSet = [];
     }
 
-    const filteredByActivity = user.activities.map(list => {
+    const filteredByActivity = professorFakeData.activities.map(list => {
       const filteredActivities = list.activities.filter(
         activity => !compareSet.includes(activity.type) 
         && (subjectSelected === '' 
@@ -42,7 +42,7 @@ const Schedule = () => {
     })
 
     setActivitiesListData(filteredByActivity)
-  }, [isProvaSelected, isTrabalhoSelected, isApresentacaoSelected, subjectSelected, user.subjects, user.activities]);
+  }, [isProvaSelected, isTrabalhoSelected, isApresentacaoSelected, subjectSelected]);
 
   return (
     <Container>
@@ -71,7 +71,7 @@ const Schedule = () => {
         <SubjectFilter onChange={(e) => setSubjectSelected(e.target.value)}>
           <option defaultValue disabled value="">Disciplinas</option>
           <option value="">Todas</option>
-          {user.subjects.map((subject) => {
+          {professorFakeData.subjects.map((subject) => {
             return <option key={subject} value={subject}>{subject}</option>
           })}
         </SubjectFilter>

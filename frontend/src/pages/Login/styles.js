@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
-import banner1 from '../../assets/home-0.jpg';
-import banner2 from '../../assets/home-1.jpg';
+import banner from '../../assets/home-1.jpg';
 
 export const Container = styled.div`
     display: flex;
@@ -18,7 +17,7 @@ export const Header = styled.div`
 
 export const Content = styled.div`
     width: 100%;
-    background-image: url(${banner2});
+    background-image: url(${banner});
     background-size: cover;
     height: calc(100vh - 30px);
 
@@ -133,6 +132,7 @@ export const LoginInfo = styled.form`
         font-size: 12px;
         color: var(--color-text-input);
         margin-left: 13%;
+        margin-right: 5px;
         padding: 20px 6px;
         height: 25px;
         width: 200px;

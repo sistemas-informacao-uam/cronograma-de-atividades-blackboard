@@ -49,6 +49,7 @@ export const ButtonSubject = styled(Link)`
     border: none;
     margin-left: 230px;
     margin-top: 10px;
+    font-size: 13px;
     text-decoration: none;
 
     background: #00AD8E;

@@ -1,6 +1,12 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
+
+import Lottie from 'react-lottie';
+import axios from 'axios';
 
 import Logo from '../../assets/logo.webp';
+
+import animationData from '../../lotties/loading-white.json';
+
 import {
   Container,
   Header,
@@ -10,7 +16,8 @@ import {
   Title,
   Error,
   LoginInfo,
-  Button
+  Button,
+  Phrase,
 } from './styles';
 
 import { useState } from 'react';
@@ -22,9 +29,44 @@ const Login = () => {
 
   const [userInputValue, setUserInputValue] = useState('');
 
+  const [phrase, setPhrase] = useState('');
+
+  useEffect(() => {
+    (async () => {
+      const proxyurl = "https://cors-anywhere.herokuapp.com/";
+      const apiFrases = 'https://api-frases-php.herokuapp.com/';
+
+      const response = await axios.get(proxyurl + apiFrases);
+      
+      setPhrase(response.data);
+    })();
+  }, []);
+
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: animationData,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice"
+    }
+  };
+
   return (
     <Container>
-      <Header />
+      <Header> 
+        {phrase 
+        ? (
+          <Phrase>{phrase}</Phrase>
+        ) 
+        : (
+          <Lottie 
+            options={defaultOptions}
+            height={45}
+            width={45}
+          />  
+        ) 
+      }
+      </Header>
       <Content>
         <LoginContainer>
           <img src={Logo} alt="Logotipo" />

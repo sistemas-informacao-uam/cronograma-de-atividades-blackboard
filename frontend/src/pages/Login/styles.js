@@ -13,6 +13,10 @@ export const Header = styled.div`
     width: 100%;
     height: 30px;
     background-color: var(--color-primary);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
 `;
 
 export const Content = styled.div`
@@ -172,4 +176,10 @@ export const Button = styled.button`
     box-shadow: 1px 1px 10px 0 rgba(0, 0, 0, 0.6);
     cursor: pointer;
   }
+`;
+
+export const Phrase = styled.span`
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
 `;

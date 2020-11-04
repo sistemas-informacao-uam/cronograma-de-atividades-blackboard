@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useEffect } from 'react';
 
 import ActivitiesList from '../ActivitiesList';
 
 import { Container, FilterWrapper, ActivitiesFilter, SubjectFilter, FilterButton } from './styles';
 
-import { professorFakeData } from '../../fakeData';
-import { useUser } from '../../context/User';
+import { Context } from '../../Context/AuthContext';
 
 const Schedule = () => {
+  const { user } = useContext(Context);
 
   const [isProvaSelected, setIsProvaSelected] = useState(false);
   const [isTrabalhoSelected, setIsTrabalhoSelected] = useState(false);
@@ -29,20 +29,26 @@ const Schedule = () => {
       compareSet = [];
     }
 
-    const filteredByActivity = professorFakeData.activities.map(list => {
-      const filteredActivities = list.activities.filter(
-        activity => !compareSet.includes(activity.type) 
-        && (subjectSelected === '' 
-        || activity.subject === subjectSelected)
-      );
-      return {
-        date: list.date,
-        activities: filteredActivities,
-      }
-    })
+    const filteredActivities = user.activities.filter(
+      activity => !compareSet.includes(activity.type) 
+      && (subjectSelected === '' 
+      || activity.subject === subjectSelected)
+    );
 
-    setActivitiesListData(filteredByActivity)
-  }, [isProvaSelected, isTrabalhoSelected, isApresentacaoSelected, subjectSelected]);
+    // Get dates and remove duplicates
+    const dates = [...new Set(user.activities.map(activity => activity.date))];
+
+    // build object categorized by date and filled with activities in that date
+    const activitiesCategorizedByDate = dates.map(date => {
+      const activities = filteredActivities.filter(activity => activity.date === date);
+      return {
+        date,
+        activities,
+      }
+    });
+
+    setActivitiesListData(activitiesCategorizedByDate)
+  }, [isProvaSelected, isTrabalhoSelected, isApresentacaoSelected, subjectSelected, user]);
 
   return (
     <Container>
@@ -71,7 +77,7 @@ const Schedule = () => {
         <SubjectFilter onChange={(e) => setSubjectSelected(e.target.value)}>
           <option defaultValue disabled value="">Disciplinas</option>
           <option value="">Todas</option>
-          {professorFakeData.subjects.map((subject) => {
+          {user.subjects.map((subject) => {
             return <option key={subject} value={subject}>{subject}</option>
           })}
         </SubjectFilter>

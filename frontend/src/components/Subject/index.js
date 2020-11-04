@@ -1,6 +1,6 @@
-import React from 'react';
-import { useUser } from '../../context/User';
+import React, { useContext } from 'react';
 
+import { Context } from '../../Context/AuthContext';
 
 import {
     Container,
@@ -9,14 +9,14 @@ import {
 } from './styles';
 
 const Subject = (props) => {
-    const {user} = useUser();
+  const { user } = useContext(Context);
 
   return (
       <Container>
           <ImageSubject />
           <p>{props.title}</p>
 
-          <ButtonSubject as={user.type === 'student' && 'button'} to="/disciplina">Acessar disciplina</ButtonSubject>
+          <ButtonSubject as={user.type === 'student' && 'button'} to={`/disciplinas/${props.title}`}>Acessar disciplina</ButtonSubject>
       </Container>
   );
 }

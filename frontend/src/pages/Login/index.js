@@ -1,5 +1,4 @@
-import React from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import React, { useContext } from 'react';
 
 import Logo from '../../assets/logo.webp';
 import {
@@ -14,29 +13,14 @@ import {
   Button
 } from './styles';
 
-import { useUser } from '../../context/User';
-import { useCallback } from 'react';
 import { useState } from 'react';
 
-import { studentFakeData, professorFakeData } from '../../fakeData';
+import { Context } from '../../Context/AuthContext';
 
 const Login = () => {
-  const history = useHistory();
-
-  const { setUser } = useUser();
+  const { handleLogin } = useContext(Context);
 
   const [userInputValue, setUserInputValue] = useState('');
-
-  const handleLogin = useCallback(() => {
-    if (userInputValue === 'aluno') {
-      setUser(studentFakeData);
-    } else if (userInputValue === 'professor') {
-      setUser(professorFakeData);
-    } else {
-      setUser({name: '', subjects: []});
-    }
-    history.push('/');
-  }, [setUser, userInputValue, history]);
 
   return (
     <Container>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import {
     Container,
@@ -9,20 +9,14 @@ import {
 } from './styles';
 
 import LogoHearder from '../../assets/subjects-logo.png';
-import { useHistory } from 'react-router-dom';
-import { useUser } from '../../context/User';
 
 import { Link } from 'react-router-dom';
 
+import { Context } from '../../Context/AuthContext';
+
 const Header = () => {
-    const { user } = useUser();
+    const { user, handleLogout } = useContext(Context);
     
-    const navigate = useHistory();
-
-    function handleLogout() {
-        navigate.push('/login');
-    }
-
     return (
         <Container>
                 <img as={Link} to="/" src={LogoHearder} alt="Anhembi Morumbi" />

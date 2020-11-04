@@ -1,7 +1,8 @@
 import React from 'react';
-// import { useUser } from '../../context/User';
 
 import Header from '../../components/Header';
+
+import { Context } from '../../Context/AuthContext';
 
 import {
   Container,
@@ -13,10 +14,20 @@ import {
 import { Button } from '../Login/styles';
 import NavBar from '../../components/NavBar';
 import ActivityRegistered from '../../components/ActivityRegistered'
+import { useContext } from 'react';
+import { useParams } from 'react-router-dom';
+import history from '../../routes/history';
 
-import { professorRegisteredActivitiesFakeDate } from '../../fakeData';
 
 const Subject = () => {
+  const { user } = useContext(Context);
+  const { subject } = useParams();
+
+  // If subject don't the use subjects, redirect to Home (or could redirect to a 404 page)
+  if (!user.subjects.includes(subject)) {
+    history.push('/');
+  }
+
   return (
     <>
       <Header />
@@ -24,7 +35,7 @@ const Subject = () => {
       <Container>
         <Sidebar>
           <div><div></div></div>
-          <h3><ArrowIconDown /> DESENVOLVIMENTO WEB <HomeIcon /></h3>
+          <h3><ArrowIconDown /> {subject.toUpperCase()} <HomeIcon /></h3>
           <span>Avisos</span>
           <span>Sala Remota</span>
           <span className="active">Atividades</span>
@@ -63,16 +74,14 @@ const Subject = () => {
           <section className="registered-activities">
             <h2>Atividades Cadastradas</h2>
 
-            {professorRegisteredActivitiesFakeDate.map((list) => {
-              return list.activities.map(activity => {
-                if (activity.subject === 'Desenvolvimento Web') {
-                  return <ActivityRegistered key={activity.id} title={activity.title} date={list.date} type={activity.type} />
+            {
+              user.activities.map(activity => {
+                if (activity.subject === subject) {
+                  return <ActivityRegistered key={activity.id} title={activity.title} date={activity.date} type={activity.type} />
                 }
                 return null;
               })
-            })}
-
-
+            }
           </section>
         </ActivitiesArea>
       </Container>

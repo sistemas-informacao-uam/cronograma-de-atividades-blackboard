@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import Lottie from 'react-lottie';
 import axios from 'axios';
@@ -19,8 +19,6 @@ import {
   Button,
   Phrase,
 } from './styles';
-
-import { useState } from 'react';
 
 import { Context } from '../../Context/AuthContext';
 

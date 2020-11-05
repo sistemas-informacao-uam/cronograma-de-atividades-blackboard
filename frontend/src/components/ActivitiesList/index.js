@@ -13,9 +13,9 @@ const ActivitiesList = ({ date, activities = []}) => {
     return (
       <Container>
         <h3>{date}</h3>
-        {activities.map(activity => {
+        {activities.map((activity, index) => {
           return (
-            <Activity key={activity.title}>
+            <Activity key={index}>
               <ActivityTypeIndicator color={colors[activity.type]} />
               <strong>{activity.subject}</strong>
               <Separator color={colors[activity.type]} />

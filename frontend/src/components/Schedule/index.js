@@ -77,16 +77,17 @@ const Schedule = () => {
         <SubjectFilter onChange={(e) => setSubjectSelected(e.target.value)}>
           <option defaultValue disabled value="">Disciplinas</option>
           <option value="">Todas</option>
-          {user.subjects.map((subject) => {
-            return <option key={subject} value={subject}>{subject}</option>
+          {user.subjects.map((subject, index) => {
+            return <option key={index} value={subject}>{subject}</option>
           })}
         </SubjectFilter>
       </FilterWrapper>
 
-      {activitiesListData.map(item => {
+      {activitiesListData.map((item) => {
         const {date, activities} = item;
         return (
-          <ActivitiesList key={date} date={date} activities={activities} />
+          // data={this.state.progr.data.sort((a, b) => a.start_time > b.start_time).filter(x => x.period === '2019-10-16T00:00:00.000-03:00')}
+          <ActivitiesList key={date} date={Intl.DateTimeFormat('pt-BR').format(new Date(date)).slice(0, 5)} activities={activities} />
         );
       })}
     </Container>

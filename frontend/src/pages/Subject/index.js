@@ -20,8 +20,43 @@ import history from '../../routes/history';
 
 
 const Subject = () => {
-  const { user } = useContext(Context);
+  const { user, setUser } = useContext(Context);
   const { subject } = useParams();
+  
+  // const [activities, setActivities] = useState([...user.activities]);
+
+  // useEffect(() => {
+  //   setActivities([...user.activities])
+  // }, [user, setUser])
+  
+  function handleCreateActivities(e) {
+    e.preventDefault();
+
+    if (e.currentTarget.title.value === '') {
+      return;
+    }
+
+    const data = {
+      subject,
+      title: e.currentTarget.title.value,
+      date: e.currentTarget.date.value,
+      type: e.currentTarget.tipo.value
+    }
+
+    // setActivities([...activities, data]);
+
+    const updatedUser = {
+      ...user,
+      activities: [
+        ...user.activities,
+        data,
+      ]
+    }
+
+    setUser(updatedUser);
+
+    e.currentTarget.reset();
+  }
 
   // If subject don't the use subjects, redirect to Home (or could redirect to a 404 page)
   if (!user.subjects.includes(subject)) {
@@ -42,10 +77,7 @@ const Subject = () => {
           <span>Avaliações</span>
         </Sidebar>
         <ActivitiesArea >
-          <form className="create-activity" onSubmit={(e) => {
-            e.preventDefault();
-            e.target.reset();
-          }}>
+          <form className="create-activity" onSubmit={(e) => handleCreateActivities(e)}>
             <div>
               <label htmlFor="title">Título</label>
               <input name="title" type="text"/>
@@ -75,9 +107,9 @@ const Subject = () => {
             <h2>Atividades Cadastradas</h2>
 
             {
-              user.activities.map(activity => {
+              user.activities.map((activity, index) => {
                 if (activity.subject === subject) {
-                  return <ActivityRegistered key={activity.id} title={activity.title} date={activity.date} type={activity.type} />
+                  return <ActivityRegistered key={index} title={activity.title} date={activity.date} type={activity.type} />
                 }
                 return null;
               })

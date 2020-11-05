@@ -53,5 +53,5 @@ export default function useAuth() {
     history.push('/login');
   }
 
-  return { authenticated, loading, handleLogin, handleLogout, user };
+  return { authenticated, loading, handleLogin, handleLogout, user, setUser };
 }

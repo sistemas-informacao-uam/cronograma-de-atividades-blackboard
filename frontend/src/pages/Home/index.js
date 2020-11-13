@@ -4,26 +4,12 @@ import Schedule from '../../components/Schedule';
 import Subject from '../../components/Subject';
 
 import { useAuth } from '../../contexts/AuthContext';
-import { db } from '../../services/firebase';
 
 import { Container, SubjectsList } from './styles';
 
 const Home = () => {
   const { currentUser } = useAuth();
-
-  const [type, setType] = useState('');
-  const [subjects, setSubjects] = useState([]);
-
-  useEffect(() => {
-    db.collection('users')
-      .doc(currentUser.uid)
-      .get()
-      .then((doc) => {
-        const data = doc.data();
-        setType(data.type);
-        setSubjects(data.subjects);
-      });
-  }, [currentUser]);
+  const { type, subjects } = currentUser;
 
   return (
     <>

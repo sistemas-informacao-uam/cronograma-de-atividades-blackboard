@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useEffect } from 'react';
+import { useAuth } from '../../contexts/AuthContext';
 
 import ActivitiesList from '../ActivitiesList';
 
@@ -11,46 +12,17 @@ import {
   FilterButton,
 } from './styles';
 
-import { useAuth } from '../../contexts/AuthContext';
-import { db } from '../../services/firebase';
-
 const Schedule = (props) => {
-  const { currentUser } = useAuth();
+  const { activities } = useAuth();
 
   const [isProvaSelected, setIsProvaSelected] = useState(false);
   const [isTrabalhoSelected, setIsTrabalhoSelected] = useState(false);
   const [isApresentacaoSelected, setIsApresentacaoSelected] = useState(false);
 
   const [subjectSelected, setSubjectSelected] = useState('');
-  const [activities, setActivities] = useState([]);
   const [filteredActivities, setFilteredActivities] = useState([]);
 
-  const [loading, setLoading] = useState(true);
-
   useEffect(() => {
-    db.collection('activities')
-      .get()
-      .then((response) => {
-        setActivities(
-          response.docs.map((doc) => {
-            const data = doc.data();
-            return {
-              ...data,
-              date: data.date.seconds,
-            };
-          })
-        );
-      })
-      .then(() => {
-        setLoading(false);
-      });
-  }, [setActivities, setLoading, props.activities]);
-
-  useEffect(() => {
-    if (loading) {
-      return;
-    }
-
     let typeCompareSet = [];
     let userSubjects = [...props.subjects];
 
@@ -91,9 +63,9 @@ const Schedule = (props) => {
     isTrabalhoSelected,
     isApresentacaoSelected,
     subjectSelected,
-    loading,
     setFilteredActivities,
     activities,
+    props.subjects,
   ]);
 
   return (

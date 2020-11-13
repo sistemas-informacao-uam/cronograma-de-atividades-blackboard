@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
-import { auth } from '../services/firebase';
+import { auth, db } from '../services/firebase';
 
 const AuthContext = createContext();
 
@@ -10,7 +10,8 @@ export function useAuth() {
 
 export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState();
-  const [loading, setLoading] = useState(true);
+  const [activities, setActivities] = useState([]);
+  const [loadingUser, setLoadingUser] = useState(true);
 
   function login(email, password) {
     return auth.signInWithEmailAndPassword(email, password);
@@ -22,8 +23,35 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
-      setCurrentUser(user);
-      setLoading(false);
+      (async () => {
+        if (user) {
+          setLoadingUser(true);
+          const doc = await db.collection('users').doc(user.uid).get();
+
+          const data = doc.data();
+
+          const type = data.type;
+          const subjects = data.subjects;
+
+          user.type = type;
+          user.subjects = subjects;
+
+          const response = await db.collection('activities').get();
+
+          setActivities(
+            response.docs.map((doc) => {
+              const data = doc.data();
+              return {
+                ...data,
+                date: data.date.seconds,
+              };
+            })
+          );
+        }
+
+        setCurrentUser(user);
+        setLoadingUser(false);
+      })();
     });
 
     return unsubscribe;
@@ -33,11 +61,13 @@ export function AuthProvider({ children }) {
     currentUser,
     login,
     logout,
+    activities,
+    setActivities,
   };
 
   return (
     <AuthContext.Provider value={value}>
-      {!loading && children}
+      {!loadingUser && children}
     </AuthContext.Provider>
   );
 }

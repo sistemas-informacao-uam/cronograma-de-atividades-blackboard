@@ -2,6 +2,8 @@ import React from 'react';
 
 import Header from '../../components/Header';
 
+import firebase from 'firebase';
+import { db } from '../../services/firebase';
 import { useAuth } from '../../contexts/AuthContext';
 
 import {
@@ -18,42 +20,42 @@ import { useParams } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
 
 const Subject = () => {
-  const { currentUser } = useAuth();
+  const { currentUser, activities, setActivities } = useAuth();
+  const { subjects } = currentUser;
+
   const { subject } = useParams();
   const history = useHistory();
 
-  // const [activities, setActivities] = useState([...currentUser.activities]);
-
-  // useEffect(() => {
-  //   setActivities([...currentUser.activities])
-  // }, [currentUser, setUser])
-
   function handleCreateActivities(e) {
-    e.preventDefault();
+    (async () => {
+      e.preventDefault();
 
-    if (e.currentTarget.title.value === '') {
-      return;
-    }
+      if (e.currentTarget.title.value === '') {
+        return;
+      }
 
-    const data = {
-      subject,
-      title: e.currentTarget.title.value,
-      date: e.currentTarget.date.value,
-      type: e.currentTarget.tipo.value,
-    };
+      const date = new firebase.firestore.Timestamp.fromDate(
+        new Date(e.currentTarget.date.value)
+      );
 
-    // setActivities([...activities, data]);
+      const data = {
+        subject,
+        title: e.currentTarget.title.value,
+        type: e.currentTarget.tipo.value,
+        date,
+      };
 
-    const updatedUser = {
-      ...currentUser,
-      activities: [...currentUser.activities, data],
-    };
+      setActivities([...activities, data]);
 
+      const response = await db.collection('activities').doc().set(data);
+
+      console.log(response);
+    })();
     e.currentTarget.reset();
   }
 
-  // If subject don't the use subjects, redirect to Home (or could redirect to a 404 page)
-  if (!currentUser.subjects.includes(subject)) {
+  // If subject don't match the user subjects, redirect to Home (or could redirect to a 404 page)
+  if (!subjects.includes(subject)) {
     history.push('/');
   }
 
@@ -86,7 +88,7 @@ const Subject = () => {
 
             <div>
               <label htmlFor="date">Data de Entrega</label>
-              <input required name="date" type="datetime" />
+              <input required name="date" type="date" />
             </div>
 
             <div>
@@ -107,13 +109,15 @@ const Subject = () => {
           <section className="registered-activities">
             <h2>Atividades Cadastradas</h2>
 
-            {currentUser.activities.map((activity, index) => {
+            {activities.map((activity, index) => {
               if (activity.subject === subject) {
                 return (
                   <ActivityRegistered
                     key={index}
                     title={activity.title}
-                    date={activity.date}
+                    date={Intl.DateTimeFormat('pt-BR').format(
+                      new Date(activity.date * 1000)
+                    )}
                     type={activity.type}
                   />
                 );

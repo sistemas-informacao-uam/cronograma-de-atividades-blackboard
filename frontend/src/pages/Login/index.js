@@ -1,11 +1,12 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import Lottie from 'react-lottie';
 import axios from 'axios';
 
 import Logo from '../../assets/logo.webp';
 
-import animationData from '../../lotties/loading-white.json';
+import animationData from '../../assets/lotties/loading-white.json';
 
 import {
   Container,
@@ -20,22 +21,47 @@ import {
   Phrase,
 } from './styles';
 
-import { Context } from '../../Context/AuthContext';
+import { useAuth } from '../../contexts/AuthContext';
 
 const Login = () => {
-  const { handleLogin } = useContext(Context);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-  const [userInputValue, setUserInputValue] = useState('');
+  const { login } = useAuth();
 
   const [phrase, setPhrase] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+
+  const history = useHistory();
+
+  const handleSubmit = useCallback(
+    (e) => {
+      e.preventDefault();
+
+      try {
+        (async () => {
+          setLoading(true);
+          await login(email, password);
+          setError(false);
+          history.push('/');
+        })();
+      } catch (error) {
+        setError(true);
+      }
+
+      setLoading(false);
+    },
+    [email, login, password, history]
+  );
 
   useEffect(() => {
     (async () => {
-      const proxyurl = "https://cors-anywhere.herokuapp.com/";
+      const proxyurl = 'https://cors-anywhere.herokuapp.com/';
       const apiFrases = 'https://api-frases-php.herokuapp.com/';
 
       const response = await axios.get(proxyurl + apiFrases);
-      
+
       setPhrase(response.data);
     })();
   }, []);
@@ -45,25 +71,18 @@ const Login = () => {
     autoplay: true,
     animationData: animationData,
     rendererSettings: {
-      preserveAspectRatio: "xMidYMid slice"
-    }
+      preserveAspectRatio: 'xMidYMid slice',
+    },
   };
 
   return (
     <Container>
-      <Header> 
-        {phrase 
-        ? (
+      <Header>
+        {phrase ? (
           <Phrase>{phrase}</Phrase>
-        ) 
-        : (
-          <Lottie 
-            options={defaultOptions}
-            height={45}
-            width={45}
-          />  
-        ) 
-      }
+        ) : (
+          <Lottie options={defaultOptions} height={45} width={45} />
+        )}
       </Header>
       <Content>
         <LoginContainer>
@@ -78,22 +97,30 @@ const Login = () => {
               </div>
             </Title>
 
-            <Error>
+            <Error error={error}>
               <p>O usuário ou senha fornecido é inválido.</p>
             </Error>
 
-            <LoginInfo>
-              <input type="text" onChange={(e) => setUserInputValue(e.target.value)} value={userInputValue} placeholder="Usuário" />
+            <LoginInfo onSubmit={handleSubmit}>
+              <input
+                type="text"
+                placeholder="Usuário"
+                onChange={(e) => setEmail(e.target.value)}
+                value={email}
+              />
               <div>
-                <input type="password" placeholder="Senha" />
-                <Button type="button" onClick={handleLogin}>
+                <input
+                  type="password"
+                  placeholder="Senha"
+                  onChange={(e) => setPassword(e.target.value)}
+                  value={password}
+                />
+                <Button disabled={loading} type="submit" onClick={login}>
                   <p>ACESSAR</p>
                 </Button>
               </div>
             </LoginInfo>
-
           </LoginBox>
-
         </LoginContainer>
       </Content>
     </Container>

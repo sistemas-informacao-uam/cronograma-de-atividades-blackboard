@@ -1,24 +1,22 @@
-import React, { useContext } from 'react';
+import React from 'react';
 
-import { Context } from '../../Context/AuthContext';
-
-import {
-    Container,
-    ImageSubject,
-    ButtonSubject,
-} from './styles';
+import { Container, ImageSubject, ButtonSubject } from './styles';
 
 const Subject = (props) => {
-  const { user } = useContext(Context);
-
+  console.log(props);
   return (
-      <Container>
-          <ImageSubject />
-          <p>{props.title}</p>
+    <Container>
+      <ImageSubject />
+      <p>{props.title}</p>
 
-          <ButtonSubject as={user.type === 'student' && 'button'} to={`/disciplinas/${props.title}`}>Acessar disciplina</ButtonSubject>
-      </Container>
+      <ButtonSubject
+        as={props.userType === 'student' && 'button'}
+        to={`/disciplinas/${props.title}`}
+      >
+        Acessar disciplina
+      </ButtonSubject>
+    </Container>
   );
-}
+};
 
 export default Subject;

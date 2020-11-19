@@ -27,6 +27,7 @@ const Subject = () => {
 
   const [minDate, setMinDate] = useState();
   const [maxDate, setMaxDate] = useState();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     function formatDate(date) {
@@ -41,7 +42,9 @@ const Subject = () => {
     } else {
       setMaxDate(formatDate(new Date('2020-06-20 00:00:00')));
     }
-  }, []);
+
+    setLoading(false);
+  }, [setLoading]);
 
   const history = useHistory();
 
@@ -134,22 +137,23 @@ const Subject = () => {
           <section className="registered-activities">
             <h2>Atividades Cadastradas</h2>
 
-            {activities.map((activity) => {
-              if (activity.subject === subject) {
-                return (
-                  <ActivityRegistered
-                    key={activity.id}
-                    docId={activity.id}
-                    title={activity.title}
-                    date={Intl.DateTimeFormat('pt-BR').format(
-                      new Date(activity.date * 1000)
-                    )}
-                    type={activity.type}
-                  />
-                );
-              }
-              return null;
-            })}
+            {!loading &&
+              activities.map((activity) => {
+                if (activity.subject === subject) {
+                  return (
+                    <ActivityRegistered
+                      key={activity.id}
+                      docId={activity.id}
+                      title={activity.title}
+                      date={activity.date}
+                      type={activity.type}
+                      minDate={minDate}
+                      maxDate={maxDate}
+                    />
+                  );
+                }
+                return null;
+              })}
           </section>
         </ActivitiesArea>
       </Container>

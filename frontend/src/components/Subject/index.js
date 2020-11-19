@@ -3,7 +3,6 @@ import React from 'react';
 import { Container, ImageSubject, ButtonSubject } from './styles';
 
 const Subject = (props) => {
-  console.log(props);
   return (
     <Container>
       <ImageSubject />

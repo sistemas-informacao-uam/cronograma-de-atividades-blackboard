@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Header from '../../components/Header';
 
@@ -64,9 +64,10 @@ const Subject = () => {
         date: timestamp,
       };
 
-      await db.collection('activities').doc().set(data);
+      const { id } = await db.collection('activities').add(data);
 
       data.date = data.date.seconds;
+      data.id = id;
       setActivities([...activities, data]);
     })();
     e.currentTarget.reset();
@@ -133,11 +134,12 @@ const Subject = () => {
           <section className="registered-activities">
             <h2>Atividades Cadastradas</h2>
 
-            {activities.map((activity, index) => {
+            {activities.map((activity) => {
               if (activity.subject === subject) {
                 return (
                   <ActivityRegistered
-                    key={index}
+                    key={activity.id}
+                    docId={activity.id}
                     title={activity.title}
                     date={Intl.DateTimeFormat('pt-BR').format(
                       new Date(activity.date * 1000)

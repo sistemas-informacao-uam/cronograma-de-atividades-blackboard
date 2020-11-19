@@ -44,6 +44,7 @@ export function AuthProvider({ children }) {
               return {
                 ...data,
                 date: data.date.seconds,
+                id: doc.id,
               };
             })
           );

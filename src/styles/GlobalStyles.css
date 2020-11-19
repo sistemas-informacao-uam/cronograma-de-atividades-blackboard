@@ -10,8 +10,8 @@
   --color-secondary: #00ad8e;
   --color-white: #ffffff;
   --color-login: rgba(255, 255, 255, 0.3);
-  --color-text: #666666;
-  --color-text-input: #a0a0a0;
+  --color-text: #5e5e5e;
+  --color-text-input: #525252;
   --color-error: #d00d10;
   --color-login-box: rgba(255, 255, 255, 0.7);
 }

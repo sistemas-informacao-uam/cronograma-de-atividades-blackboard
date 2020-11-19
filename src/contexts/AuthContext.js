@@ -1,6 +1,6 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from "react";
 
-import { auth, db } from '../services/firebase';
+import { auth, db } from "../services/firebase";
 
 const AuthContext = createContext();
 
@@ -26,7 +26,7 @@ export function AuthProvider({ children }) {
       (async () => {
         if (user) {
           setLoadingUser(true);
-          const doc = await db.collection('users').doc(user.uid).get();
+          const doc = await db.collection("users").doc(user.uid).get();
 
           const data = doc.data();
 
@@ -36,7 +36,7 @@ export function AuthProvider({ children }) {
           user.type = type;
           user.subjects = subjects;
 
-          const response = await db.collection('activities').get();
+          const response = await db.collection("activities").get();
 
           setActivities(
             response.docs.map((doc) => {

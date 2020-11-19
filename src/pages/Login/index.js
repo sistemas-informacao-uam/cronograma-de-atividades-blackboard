@@ -1,12 +1,12 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useCallback, useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 
-import Lottie from 'react-lottie';
-import axios from 'axios';
+import Lottie from "react-lottie";
+import axios from "axios";
 
-import Logo from '../../assets/logo.webp';
+import Logo from "../../assets/logo.webp";
 
-import animationData from '../../assets/lotties/loading-white.json';
+import animationData from "../../assets/lotties/loading-white.json";
 
 import {
   Container,
@@ -19,17 +19,17 @@ import {
   LoginInfo,
   Button,
   Phrase,
-} from './styles';
+} from "./styles";
 
-import { useAuth } from '../../contexts/AuthContext';
+import { useAuth } from "../../contexts/AuthContext";
 
 const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const { login } = useAuth();
 
-  const [phrase, setPhrase] = useState('');
+  const [phrase, setPhrase] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
@@ -44,7 +44,7 @@ const Login = () => {
           setLoading(true);
           await login(email, password);
           setError(false);
-          history.push('/');
+          history.push("/");
         })();
       } catch (error) {
         setError(true);
@@ -57,8 +57,8 @@ const Login = () => {
 
   useEffect(() => {
     (async () => {
-      const proxyurl = 'https://cors-anywhere.herokuapp.com/';
-      const apiFrases = 'https://api-frases-php.herokuapp.com/';
+      const proxyurl = "https://cors-anywhere.herokuapp.com/";
+      const apiFrases = "https://api-frases-php.herokuapp.com/";
 
       const response = await axios.get(proxyurl + apiFrases);
 
@@ -71,7 +71,7 @@ const Login = () => {
     autoplay: true,
     animationData: animationData,
     rendererSettings: {
-      preserveAspectRatio: 'xMidYMid slice',
+      preserveAspectRatio: "xMidYMid slice",
     },
   };
 

@@ -1,6 +1,6 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
-import banner from '../../assets/home-1.jpg';
+import banner from "../../assets/home-1.jpg";
 
 export const Container = styled.div`
   display: flex;
@@ -94,14 +94,11 @@ export const Title = styled.div`
 `;
 
 export const Error = styled.div`
-  display: none;
-
-  &.error {
-    display: block;
-  }
+  display: ${(props) => (props.error ? "block" : "none")};
 
   > p {
     color: var(--color-error);
+    font-size: 14px;
     min-height: 35px;
     font-weight: 700;
     line-height: 35px;

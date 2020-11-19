@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import Header from '../../components/Header';
 
@@ -24,6 +24,25 @@ const Subject = () => {
   const { subjects } = currentUser;
 
   const { subject } = useParams();
+
+  const [minDate, setMinDate] = useState();
+  const [maxDate, setMaxDate] = useState();
+
+  useEffect(() => {
+    function formatDate(date) {
+      return date.toISOString().slice(0, 10);
+    }
+
+    const today = new Date();
+    setMinDate(formatDate(today));
+
+    if (today.getMonth() > 8) {
+      setMaxDate(formatDate(new Date('2020-12-20 00:00:00')));
+    } else {
+      setMaxDate(formatDate(new Date('2020-06-20 00:00:00')));
+    }
+  }, []);
+
   const history = useHistory();
 
   function handleCreateActivities(e) {
@@ -34,22 +53,21 @@ const Subject = () => {
         return;
       }
 
-      const date = new firebase.firestore.Timestamp.fromDate(
-        new Date(e.currentTarget.date.value)
-      );
+      const date = new Date(`${e.currentTarget.date.value} 23:59:59`);
+
+      const timestamp = new firebase.firestore.Timestamp.fromDate(date);
 
       const data = {
         subject,
         title: e.currentTarget.title.value,
         type: e.currentTarget.tipo.value,
-        date,
+        date: timestamp,
       };
 
+      await db.collection('activities').doc().set(data);
+
+      data.date = data.date.seconds;
       setActivities([...activities, data]);
-
-      const response = await db.collection('activities').doc().set(data);
-
-      console.log(response);
     })();
     e.currentTarget.reset();
   }
@@ -88,7 +106,13 @@ const Subject = () => {
 
             <div>
               <label htmlFor="date">Data de Entrega</label>
-              <input required name="date" type="date" />
+              <input
+                required
+                name="date"
+                min={minDate}
+                max={maxDate}
+                type="date"
+              />
             </div>
 
             <div>

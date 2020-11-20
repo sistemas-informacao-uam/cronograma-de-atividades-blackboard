@@ -35,25 +35,20 @@ const Login = () => {
 
   const history = useHistory();
 
-  const handleSubmit = useCallback(
-    (e) => {
-      e.preventDefault();
+  async function handleSubmit(e) {
+    e.preventDefault();
+    const verifica = await login(email, password);
+    if (verifica !== "auth/invalid-email") {
+      setLoading(true);
+      await login(email, password);
+      setError(false);
+      history.push("/");
+    } else {
+      setError(true);
+    }
 
-      try {
-        (async () => {
-          setLoading(true);
-          await login(email, password);
-          setError(false);
-          history.push("/");
-        })();
-      } catch (error) {
-        setError(true);
-      }
-
-      setLoading(false);
-    },
-    [email, login, password, history]
-  );
+    setLoading(false);
+  }
 
   useEffect(() => {
     (async () => {

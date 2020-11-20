@@ -14,7 +14,12 @@ export function AuthProvider({ children }) {
   const [loadingUser, setLoadingUser] = useState(true);
 
   function login(email, password) {
-    return auth.signInWithEmailAndPassword(email, password);
+    return auth
+      .signInWithEmailAndPassword(email, password)
+      .catch(function (error) {
+        const errorCode = error.code;
+        return errorCode;
+      });
   }
 
   function logout() {

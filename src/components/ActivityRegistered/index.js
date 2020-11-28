@@ -5,9 +5,11 @@ import { Container } from './styles';
 
 import firebase from 'firebase';
 import { db } from '../../services/firebase';
+import { useAuth } from '../../contexts/AuthContext';
 
 const ActivityRegistered = (props) => {
   const { docId, title, type, date, minDate, maxDate } = props;
+  const { activities, setActivities } = useAuth();
 
   const [titleInput, setTitleInput] = useState(title);
   const [typeInput, setTypeInput] = useState(type);
@@ -15,7 +17,7 @@ const ActivityRegistered = (props) => {
 
   useEffect(() => {
     const formatDate = new Date(date * 1000);
-    const day = formatDate.getDate();
+    const day = formatDate.getDate() < 10 ? '0' + formatDate.getDate() : formatDate.getDate();
     const month = formatDate.getMonth() + 1;
     const year = formatDate.getFullYear();
 
@@ -24,7 +26,9 @@ const ActivityRegistered = (props) => {
 
   const handleDelete = useCallback(() => {
     db.collection('activities').doc(docId).delete();
-  }, [docId]);
+
+    setActivities(activities.filter(activity => activity.id !== docId));
+  }, [activities, docId, setActivities]);
 
   const handleEdit = useCallback(() => {
     const date = new Date(`${dateInput} 23:59:59`);
@@ -37,8 +41,17 @@ const ActivityRegistered = (props) => {
       date: timestamp,
     };
 
-    db.collection('activities').doc(docId).set(data, { merge: true });
-  }, [docId, dateInput, titleInput, typeInput]);
+    const activityIndex = activities.findIndex(activity => activity.id === docId)
+    const updatedActivities = [...activities];
+
+    updatedActivities[activityIndex].title = titleInput;
+    updatedActivities[activityIndex].type = typeInput;
+    updatedActivities[activityIndex].date = timestamp.seconds;
+
+    setActivities(updatedActivities);
+
+    db.collection('activities').doc(docId).set(data, { merge: true })
+  }, [dateInput, titleInput, typeInput, activities, setActivities, docId]);
 
   return (
     <Container>

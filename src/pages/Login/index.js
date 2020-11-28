@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 
 import Lottie from "react-lottie";
@@ -76,8 +76,8 @@ const Login = () => {
         {phrase ? (
           <Phrase>{phrase}</Phrase>
         ) : (
-          <Lottie options={defaultOptions} height={45} width={45} />
-        )}
+            <Lottie options={defaultOptions} height={45} width={45} />
+          )}
       </Header>
       <Content>
         <LoginContainer>
